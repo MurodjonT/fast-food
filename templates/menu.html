@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- food section -->
+
+  <section class="food_section layout_padding">
+    <div class="container">
+      <div class="heading_container heading_center">
+        <h2 style="color:white;">
+          Our Menu
+        </h2>
+      </div>
+
+      <ul class="filters_menu">
+        <li class="active" data-filter="*">All</li>
+        <li data-filter=".burger">Burger</li>
+        <li data-filter=".pizza">Pizza</li>
+        <li data-filter=".pasta">Pasta</li>
+        <li data-filter=".fries">Fries</li>
+      </ul>
+
+      <div class="filters-content">
+        <div class="row grid">
+           {% for products in page %}
+          <div class="col-sm-6 col-lg-4 all pizza">
+            <div class="box">
+              <div>
+                <div class="img-box">
+                  {% if products.image %}
+                  <img src="{{ products.image.url }}" alt="">
+                  {% endif %}
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    {{ products.name_card }}
+                  </h5>
+                  <p>
+                    {{ products.description }}
+                  </p>
+                 
+
+<div class="">
+  {% if user.is_authenticated %}
+
+  <button data-product='{{ mahsulot.id }}' data-action = 'add' class = "btn btn-outline-cecondary add-btn update-cart " id="button Add to Cartadd"> Add to Cart
+  </button>
+
+  <a class="btn btn-outline success" data-toggle="modal" data-target = "#exampleModal-{{ forloop.counter }}"> View </a>
+  <h4 style="display: inline-block; float: right">
+  <strong>
+      {{ products.price }}
+  </strong>
+   </h4>
+   {% else %}
+   <a href="{% url 'login' %}">
+    <button id = "buttonadd"> 
+      Add to Cart
+      </button> 
+   </a>
+  <a class="btn btn-outline success" data-toggle="modal" data-target = "#exampleModal-{{ forloop.counter }}"> View </a>
+  <h4 style="display: inline-block; float: right">
+    <strong>
+      {{ products.price }}
+  </strong>
+   </h4>
+   {% endif %}  
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+           {% endfor %}
+        </div>
+      </div>
+    <br>
+        <div class="col-md-6">
+            <div class="col-12 my-5">
+              <nav aria-label="Page Navigation">
+                   {% if page.has_previous %}
+                    <a href="{% url 'menu'%}?page={{page.previous_page_number }}"><button type="button">Oldingi sahifa</button></a>
+                      {% endif %} | 
+                      {% if page.has_next %}
+                    <a href="{% url 'menu' %}?page={{page.next_page_number}}"><button type="button">Keyingi sahifa</button></a>
+                      {%endif%}
+                      <style type="text/css">
+                        button{ 
+                              margin-top: 15px;
+                              border: none;
+                              text-transform: uppercase;
+                              display: inline-block;
+                              padding: 10px 55px;
+                              background-color: #ffbe33;
+                              color: #ffffff;
+                              border-radius: 45px;
+                              -webkit-transition: all 0.3s;
+                              transition: all 0.3s;
+                              border: none;
+                        }
+               </style> 
+              </nav>
+            </div>
+               
+    </div>
+    </div>
+  </section>
+
+{% endblock content %}
+  <!-- end food section -->
+
+  <!-- footer section -->
+  
